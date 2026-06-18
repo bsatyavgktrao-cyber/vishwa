@@ -426,13 +426,27 @@ export default function App() {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="text-[10px] uppercase font-bold tracking-wider text-gray-400 block mb-1">{getTranslation(selectedLanguage, "form_tob")}</label>
-                      <input
-                        type="time"
-                        className="w-full bg-[#fdfbf7] border border-[#dcd7cc] rounded-xl px-3 py-2 text-sm outline-none"
-                        value={tob}
-                        onChange={(e) => setTob(e.target.value)}
-                        required
-                      />
+                      <div className="flex items-center space-x-1">
+                        <select
+                          className="w-full bg-[#fdfbf7] border border-[#dcd7cc] rounded-xl px-2 py-2 text-sm outline-none"
+                          value={tob.split(':')[0] || "12"}
+                          onChange={(e) => setTob(`${e.target.value}:${tob.split(':')[1] || "00"}`)}
+                        >
+                          {Array.from({ length: 24 }).map((_, i) => (
+                            <option key={`h-${i}`} value={i.toString().padStart(2, '0')}>{i.toString().padStart(2, '0')}</option>
+                          ))}
+                        </select>
+                        <span className="font-bold text-gray-500">:</span>
+                        <select
+                          className="w-full bg-[#fdfbf7] border border-[#dcd7cc] rounded-xl px-2 py-2 text-sm outline-none"
+                          value={tob.split(':')[1] || "00"}
+                          onChange={(e) => setTob(`${tob.split(':')[0] || "12"}:${e.target.value}`)}
+                        >
+                          {Array.from({ length: 60 }).map((_, i) => (
+                            <option key={`m-${i}`} value={i.toString().padStart(2, '0')}>{i.toString().padStart(2, '0')}</option>
+                          ))}
+                        </select>
+                      </div>
                     </div>
                     <div>
                       <label className="text-[10px] uppercase font-bold tracking-wider text-gray-400 block mb-1">{getTranslation(selectedLanguage, "form_city")}</label>
