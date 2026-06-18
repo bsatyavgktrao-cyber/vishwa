@@ -1,0 +1,6 @@
+{
+  "name": "Vishwa Jyotish",
+  "description": "AI-Powered Vedic Astrology, Sidereal Kundli, and Match Making Suite",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
