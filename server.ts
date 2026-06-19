@@ -19,7 +19,7 @@ function getAIClient() {
   if (!aiClient) {
     const key = process.env.GEMINI_API_KEY;
     if (!key) {
-      throw new Error("GEMINI_API_KEY environment variable is missing from workspace secrets.");
+      throw new Error("GEMINI_API_KEY environment variable is not configured. Please add your API key in Netlify Environment Variables and REDEPLOY the site.");
     }
     aiClient = new GoogleGenAI({ apiKey: key });
   }
