@@ -72,7 +72,7 @@ Format the response with clean title sections and bullet points. Keep each secti
         const response = await ai.models.generateContent({
             model: "gemini-2.5-flash",
             contents: prompt,
-            config: { maxOutputTokens: 800 },
+            config: { maxOutputTokens: 1200, thinkingConfig: { thinkingBudget: 0 } },
           });
         textResult = response.text || "";
         success = true;
