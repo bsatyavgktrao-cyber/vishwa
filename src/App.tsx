@@ -684,12 +684,12 @@ export default function App() {
                     </div>
 
                     {aiReport ? (
-                      <div className="prose prose-invert prose-xs leading-relaxed max-w-none text-slate-200 space-y-4">
+                      <div className="prose prose-invert prose-sm leading-relaxed max-w-none text-slate-200 space-y-4">
                         {aiReport.split("\n\n").map((para, i) => {
                           if (para.startsWith("#")) {
-                            return <h4 key={i} className="text-[#d97706] font-serif text-lg font-bold mt-6 mb-2 border-l-2 border-amber-600 pl-3">{para.replace(/#+\s+/, "")}</h4>;
+                           return <h4 key={i} className="text-[#d97706] font-serif text-base md:text-lg font-bold mt-6 mb-2 border-l-2 border-amber-600 pl-3">{para.replace(/#+\s+/, "")}</h4>;
                           }
-                          return <p key={i} className="text-xs md:text-sm">{para}</p>;
+                         return <p key={i} className="text-sm md:text-base">{para}</p>;
                         })}
                       </div>
                     ) : (
