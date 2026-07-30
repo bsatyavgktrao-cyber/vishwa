@@ -30,7 +30,7 @@ router.post("/horoscope", async (req, res) => {
     const { name, gender, dob, tob, city, rashi, nakshatra, pada, ascendant, signDetails, language } = req.body;
 
     const prompt = `You are an expert royal Vedic Astrologer (Jyotish Acharya) with deep knowledge of Shastras.
-Generate an exceptionally detailed, accurate, and structured personal horoscope reading in "${language || "English"}" language for:
+Generate a clear, accurate, and well-structured personal horoscope reading in "${language || "English"}" language for:
 - Name: ${name}
 - Gender: ${gender}
 - Birth Date: ${dob}
@@ -60,7 +60,7 @@ Analyze spiritual inclinations, karmic paths, moksha potential, and deeper soul 
 # SECTION 6: RECOMMENDED ASTROLOGICAL REMEDIES & DEITY
 Suggest concrete gems, sacred mantras (such as specific beeja mantras), fasting days, charitable deeds, and deity worship tailored precisely to their planetary configurations.
 
-Format the response beautifully with clean title sections, bullet points, and italicized Vedic shloka translations where appropriate. Maintain strict fidelity to traditional Vedic knowledge. Do not use generic horoscopes.`;
+Format the response with clean title sections and bullet points. Keep each section brief — 3 to 4 sentences maximum. Keep the ENTIRE response under 350 words total. Maintain fidelity to traditional Vedic knowledge. Do not use generic horoscopes.`;
 
     const ai = getAIClient();
 
@@ -70,16 +70,17 @@ Format the response beautifully with clean title sections, bullet points, and it
     for (let i = 0; i < 3; i++) {
       try {
         const response = await ai.models.generateContent({
-          model: "gemini-2.5-flash",
-          contents: prompt,
-        });
+            model: "gemini-2.5-flash",
+            contents: prompt,
+            config: { maxOutputTokens: 800 },
+          });
         textResult = response.text || "";
         success = true;
         break;
       } catch (err: any) {
         if (err.message && err.message.includes("503")) {
           console.warn(`[Gemini API] 503 Service Unavailable encountered. Retrying... (${i + 1}/3)`);
-          await new Promise(r => setTimeout(r, 5000));
+          await new Promise(r => setTimeout(r, 1000));
         } else {
           throw err;
         }
